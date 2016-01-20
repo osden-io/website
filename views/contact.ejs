@@ -28,31 +28,44 @@
 					<form>
 						<div class="row">
 							<div class="col-sm-4">
-								<input class="form-control" type="text" placeholder="Name">
+								<input id="name" class="form-control" type="text" placeholder="Name">
 							</div>
 							<div class="col-sm-4">
-								<input class="form-control" type="text" placeholder="Email">
+								<input id="email" class="form-control" type="text" placeholder="Email">
 							</div>
 							<div class="col-sm-4">
-								<input class="form-control" type="text" placeholder="Phone">
+								<input id="phone" class="form-control" type="text" placeholder="Phone">
 							</div>
 						</div>
 						<br>
 						<div class="row">
 							<div class="col-sm-12">
-								<textarea placeholder="Type your message here..." class="form-control" rows="9"></textarea>
+								<textarea id="text" placeholder="Type your message here..." class="form-control" rows="9"></textarea>
 							</div>
 						</div>
 						<br>
 						<div class="row">
 							<div class="col-sm-6">
-								<label class="checkbox"><input type="checkbox"> Sign up for newsletter</label>
+								<label class="checkbox"><input id="newsletter" type="checkbox" checked="true"> Sign up for newsletter</label>
 							</div>
 							<div class="col-sm-6 text-right">
-								<input class="btn btn-action" type="submit" value="Send message">
+								<input id="send-email" class="btn btn-action" type="button" value="Send message">
 							</div>
 						</div>
 					</form>
+
+					<div id="modal-display" class="modal fade" tabindex="-1" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-body">
+									<label id="message"></label>
+								</div>
+								<div class="modal-footer">
+									<button id="close-modal" type="button" class="btn btn-action" data-dismiss="modal">Close</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</div><!-- /.modal -->
 
 			</article>
 			<!-- /Article -->
@@ -84,6 +97,8 @@
 	<% include footer %>	
 
 	<% include scripts %>
+	
+	<script src="assets/js/email.js"></script>
 	
 	<!-- Google Maps -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=&amp;sensor=false&amp;extension=.js"></script> 
