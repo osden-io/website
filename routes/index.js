@@ -26,7 +26,7 @@ router.post('/contact/submit', function(req, res) {
 			  "Email: " + req.body.email + "\n" +
 			  "Phone: " + req.body.phone + "\n" +
 			  "Message:" + req.body.text + "\n" +
-			  "Subscribe: " + req.body.join
+			  "Subscribe: " + req.body.newsletter
 
 	var server = emailjs.server.connect({ 
 											user: process.env.EMAIL_USER,

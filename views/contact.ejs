@@ -25,16 +25,16 @@
 					info about yourself and your company and we will get back to you as soon as possible.
 				</p>
 				<br>
-					<form>
+					<form id="contact-form">
 						<div class="row">
 							<div class="col-sm-4">
-								<input id="name" class="form-control" type="text" placeholder="Name">
+								<input id="name" class="form-control" type="text" placeholder="Name" required>
 							</div>
 							<div class="col-sm-4">
-								<input id="email" class="form-control" type="text" placeholder="Email">
+								<input id="email" class="form-control" type="email" placeholder="Email" required>
 							</div>
 							<div class="col-sm-4">
-								<input id="phone" class="form-control" type="text" placeholder="Phone">
+								<input id="phone" class="form-control" type="tel" placeholder="Phone">
 							</div>
 						</div>
 						<br>
@@ -49,7 +49,7 @@
 								<label class="checkbox"><input id="newsletter" type="checkbox" checked="true"> Sign up for newsletter</label>
 							</div>
 							<div class="col-sm-6 text-right">
-								<input id="send-email" class="btn btn-action" type="button" value="Send message">
+								<input id="send-email" class="btn btn-action" type="submit" value="Send message">
 							</div>
 						</div>
 					</form>
