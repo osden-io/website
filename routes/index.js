@@ -1,5 +1,5 @@
 var express = require('express');
-var emailjs = require('emailjs');
+var sendgrid = require("sendgrid")(process.env.SENDGRID_API);
 
 var router = express.Router();
 
@@ -21,38 +21,30 @@ router.get('/contact', function(req, res) {
 
 router.post('/contact/submit', function(req, res) {
 
-	var msg = "There has been a submission from the Osden website:\n" +
-			  "Name: " + req.body.name + "\n" +
-			  "Email: " + req.body.email + "\n" +
-			  "Phone: " + req.body.phone + "\n" +
-			  "Message:" + req.body.text + "\n" +
-			  "Subscribe: " + req.body.newsletter
+	var email = new sendgrid.Email();
+	var msg = "<p>There has been a submission from the Osden website:</p>" +
+				  "<p>Name: " + req.body.name + "</p>" +
+				  "<p>Email: " + req.body.email + "</p>" +
+				  "<p>Phone: " + req.body.phone + "</p>" +
+				  "<p>Message: " + req.body.text + "</p>" +
+				  "<p>Subscribe: " + (req.body.newsletter ? "Yes" : "No") + "</p>"
 
-	var server = emailjs.server.connect({ 
-											user: process.env.EMAIL_USER,
-											password: process.env.EMAIL_PASSWORD,
-											host: process.env.EMAIL_HOST,
-											ssl: process.env.EMAIL_SSL == true || 
-										  		 process.env.EMAIL_SSL == "true",
-											smtp: true
-      									});
+	email.addTo(process.env.CONTACT_EMAIL);
+	email.setFrom(process.env.WEBSITE_EMAIL);
+	email.setSubject("Osden Website Form Submission");
+	email.setHtml(msg);
 
-	server.send({
-					text: msg,
-					from: 'info@osden.io',
-					to: 'info@osden.io',
-					subject: 'Osden contact' 
-				},
-			    
-			    function (err, message) { 
-			    	if(err) {
-			    		console.log(err);
-			    		console.log("Message: " + message);
-			    		res.send('error');	
-			    	} else {
-			    		res.send('sent');
-			    	}
-			    });
+	sendgrid.send(email,
+		function (err, message) { 
+		   	if(err) {
+		   		console.log(err);
+		   		console.log("Message: " + message);
+		   		res.status(500).send(err);	
+		   	} else {
+		   		res.send(message);
+		   	}
+		}
+	);
 });
 
 module.exports = router;
